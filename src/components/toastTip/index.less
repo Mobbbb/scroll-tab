@@ -1,0 +1,53 @@
+.toastTip {
+    display: none;
+    position: fixed;
+    left: 50%;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    z-index: -100;
+
+    width: 96px;
+    height: 96px;
+    border-radius: 6px;
+    background: fade(#24211f, 86%);
+    text-align: center;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 300ms;
+    &.show {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        opacity: 1;
+        z-index: 100;
+    }
+    .toastTipIcon {
+        width: 32px;
+        height: 32px;
+        background-size: cover;
+    }
+    .toastTipTxt {
+        margin-top: 5px;
+        font-size: 14px;
+    }
+}
+.toastMask{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -99;
+    background: black;
+    opacity: 0.17;
+
+    &.show{
+        display: block;
+        z-index: 99;
+    }
+}
+

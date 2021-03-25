@@ -1,0 +1,157 @@
+body,html{
+    height: 100%;
+}
+body{
+    font: 14px "Helvetica Neue",Helvetica,STHeiTi,sans-serif;
+    line-height: 1.4;
+    color: #262626;
+    background: #f5f5f5;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+.flex{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.align-center{
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.justify-center{
+    -webkit-box-pack: center;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.justify-between{
+    -webkit-box-pack: justify;
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.justify-around{
+    -moz-justify-content: space-around;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+}
+
+.shrink{
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.box-tb{
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+.icon22{
+    width: 22px;
+    height: 22px;
+    background-image: url("../assets/reports_sprite_icon3x.png");
+    background-size: 290px 140px;
+}
+.search-icon{
+    width: 22px;
+    height: 22px;
+    background-image: url("../assets/search_small.png");
+    background-size: cover;
+}
+.multi-selected-icon{
+    height: 18px;
+    width: 18px;
+    min-width: 18px;
+    background-image: url("../assets/select-icon3x.png");
+    background-size: 100% 100%;
+}
+.red_percent{
+    color: #e83614;
+}
+.green_percent{
+    color: #29a497;
+}
+.overflow-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.filter-content-wrap{
+    position: absolute;
+    top: 36px;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 10;
+}
+.filter-content{
+    height: 100%;
+    position: relative;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+/*筛选按钮样式*/
+.filter-btn-wrap{
+    height: 47px;
+    line-height: 47px;
+    width: 100%;
+    border-top: 1PX solid #f0f0f0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: white;
+    color: #b2b2b2;
+    font-weight: 500;
+}
+.filter-btn{
+    flex: 1;
+    text-align: center;
+    height: 100%;
+}
+.active-btn-wrap .cancel-btn{
+    color: #262626;
+}
+.active-btn-wrap .confirm-btn{
+    color: #e62c08;
+}
+.btn-line{
+    height: 100%;
+    width: 1PX;
+    background: #f0f0f0;
+}
+.card-wrap{
+    width: 100%;
+    padding: 12px 12px 14px 12px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+.card-name{
+    color: #0060de;
+}
+.card-action{
+    color: #e62c08;
+}
+.bar-wrap{
+    background: -webkit-linear-gradient(0deg, #e92f30, #e1201d);
+    background: -o-linear-gradient(0deg, #e92f30, #e1201d);
+    background: -moz-linear-gradient(0deg, #e92f30, #e1201d);
+    background: linear-gradient(0deg, #e92f30, #e1201d);
+}
