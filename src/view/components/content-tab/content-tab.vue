@@ -1,7 +1,7 @@
 <template>
     <div class="content_tab">
         <div class="content-tab-top">
-            <TabTitle v-model="current" :titleArr="titleArr"></TabTitle>
+            <TabTitle v-model="current" :titleArr="tabConfig"></TabTitle>
             <!-- <FilterComponent ref="filterComponent" @on-search="filterHandle"></FilterComponent> -->
         </div>
         <CardSwipe @on-change-end="swipeChangeEnd"
@@ -52,7 +52,7 @@ export default {
     },
     computed: {
         ...mapState('tabModule', [
-            'titleArr',
+            'tabConfig',
             'tabScrollHeight',
             'tabOverflowY'
         ]),

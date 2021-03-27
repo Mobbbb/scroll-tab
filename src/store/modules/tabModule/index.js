@@ -15,7 +15,7 @@ const tabModule = {
     namespaced: true,
     state: {
         current: 0,
-        titleArr: [],
+        tabConfig: [],
         tabScrollHeight: TAB_SCROLL,
         activeOpinion: null,
         initOnceStatus: true, // 保证初始化只进行一次
@@ -26,8 +26,8 @@ const tabModule = {
         setCurrent(state, current) {
             state.current = current;
         },
-        setTabTitle(state, arr) {
-            state.titleArr = arr;
+        setTabConfig(state, arr) {
+            state.tabConfig = arr;
         },
         setActiveOpinion(state, opinion) {
             state.activeOpinion = opinion;
@@ -48,7 +48,7 @@ const tabModule = {
     actions: {
         initContentTab({ state, commit, dispatch }) {
             if (state.initOnceStatus) {
-                commit('setTabTitle', TAB_CONFIG);
+                commit('setTabConfig', TAB_CONFIG);
                 commit('setCurrent', parseInt(getQueryParmas('tab')) || 0);
                 commit('setInitOnceStatus', false);
                 // dispatch('mainModule/getCurrentTabFirstPageList', {}, { root: true });

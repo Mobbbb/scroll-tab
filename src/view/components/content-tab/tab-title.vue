@@ -3,7 +3,7 @@
         <div class="tab-title-item"
              :class="value === index ? 'active-title' : ''"
              @click="clickTitle(index)"
-             v-for="(item, index) in titleArr">
+             v-for="(item, index) in titleArr" :key="index">
             <span>{{item.name}}</span>
         </div>
         <div class="red-bottom-bar" :style="{ left: position + 'px' }"></div>

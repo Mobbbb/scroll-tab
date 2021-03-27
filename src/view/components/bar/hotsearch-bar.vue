@@ -2,7 +2,8 @@
     <div class="hot-search">
         <div class="icon22 hot-search-title"></div>
         <div class="hot-list-wrap">
-            <div class="hot-item"
+            <div :key="index"
+                 class="hot-item"
                  v-for="(item, index) in showHotListData"
                  @click="clickHotSearch(item, index)">
                 {{item.title}}
@@ -35,7 +36,7 @@ export default {
         clickHotSearch(item, index) {
             this.resetFilterParams();
             this.updateInputValue(item.title);
-            this.searchCurrentList();
+            // this.searchCurrentList();
         }
     }
 };
