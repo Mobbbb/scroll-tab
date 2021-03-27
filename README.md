@@ -1,4 +1,4 @@
-# fastselect
+# Tab组件————头部模块，纵向滚动跟随-横向切换固定
 
 ## Project setup
 ```
