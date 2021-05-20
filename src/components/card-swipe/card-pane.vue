@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-card-wrap" :style="{width: cardWidth + 'px', overflowY}" @transitionend.stop>
+    <div class="tab-card-wrap" :style="{width: cardWidth + 'px', overflowY}" @transitionend.stop @scroll="scrollHandle">
         <slot></slot>
     </div>
 </template>
@@ -24,7 +24,13 @@ export default {
         },
     },
     methods: {
-
+        /**
+         * @description 配合scroll-tab组件新增的方法，单独使用card-swip组件时去除
+         */
+        scrollHandle(e) {
+            this.$parent.$parent.setStaticTopPos(e.target.scrollTop);
+            this.$parent.$parent.syncScrollHeight(this, e.target.scrollTop);
+        },
     },
 }
 </script>

@@ -1,47 +1,17 @@
 <template>
     <div class="content_tab">
-        <div class="content-tab-top">
-            <TabTitle v-model="current" :titleArr="tabConfig"></TabTitle>
-            <!-- <FilterComponent ref="filterComponent" @on-search="filterHandle"></FilterComponent> -->
-        </div>
-        <CardSwipe @on-change-end="swipeChangeEnd"
-                   v-model="current"
-                   :height="tabWrapHeight + 'px'"
-                   :cardWidth="cardWidth">
-            <CardPane :overflowY="tabOverflowY" @scroll.native.passive="scroll($event, 'chartComponent')">
-                <ChartComponent ref="chartComponent"></ChartComponent>
-            </CardPane>
-            <CardPane :overflowY="tabOverflowY" @scroll.native.passive="scroll($event, 'opinionComponent')">
-                <OpinionComponent ref="opinionComponent"></OpinionComponent>
-            </CardPane>
-            <CardPane :overflowY="tabOverflowY" @scroll.native.passive="scroll($event, 'reportsComponent')">
-                <ReportsComponent ref="reportsComponent"></ReportsComponent>
-            </CardPane>
-        </CardSwipe>
+        
     </div>
 </template>
 <script>
 
 import { mapActions, mapState, mapMutations } from 'vuex';
 import { throttle } from '_a/libs/util';
-import TabTitle from './tab-title.vue';
-import FilterComponent from '../filter-component/filter-component.vue';
-import CardSwipe from '_a/components/card-swipe/card-swipe.vue';
-import CardPane from '_a/components/card-swipe/card-pane.vue';
-import OpinionComponent from '../../pages/opinion-component/opinion-component.vue';
-import ChartComponent from '../../pages/chart-component/chart-component.vue';
-import ReportsComponent from '../../pages/reports-component/reports-component.vue';
 
 export default {
     name: 'content-tab',
     components: {
-        TabTitle,
-        FilterComponent,
-        CardSwipe,
-        CardPane,
-        ChartComponent,
-        OpinionComponent,
-        ReportsComponent,
+
     },
     data() {
         return {

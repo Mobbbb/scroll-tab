@@ -10,12 +10,19 @@
                 </div>
             </template>
             
-            <ul :slot="`card-pane-${index}`" 
-                :key="item.trackPoint"
-                class="scroll-tab-ul" 
-                v-for="(item, index) in tabConfig">
-                <li v-for="(cell, _index) in 50" :key="_index">
-                    Tab{{index}} - 内容{{_index}}
+            <ul slot="card-pane-0" class="scroll-tab-ul">
+                <li v-for="(cell, index) in 50" :key="index">
+                    Tab0 - 内容{{index}}
+                </li>
+            </ul>
+            <ul slot="card-pane-1" class="scroll-tab-ul">
+                <li v-for="(cell, index) in 50" :key="index">
+                    Tab1 - 内容{{index}}
+                </li>
+            </ul>
+            <ul slot="card-pane-2" class="scroll-tab-ul">
+                <li v-for="(cell, index) in 50" :key="index">
+                    Tab2 - 内容{{index}}
                 </li>
             </ul>
         </scroll-tab>
