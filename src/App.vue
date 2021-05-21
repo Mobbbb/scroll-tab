@@ -1,16 +1,18 @@
 <template>
     <div id="app">
-        <keep-alive>
-            <router-view/>
-        </keep-alive>
+        <Main></Main>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Main from './view/main.vue';
 
 export default {
     name: 'App',
+    components: {
+        Main,
+    },
     data() {
         return {
 

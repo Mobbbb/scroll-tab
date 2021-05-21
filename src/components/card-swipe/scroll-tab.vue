@@ -8,7 +8,7 @@
                    :cardWidth="cardWidth"
                    @on-change-end="swipeChangeEnd"
                    @on-drag-start="swipeChangeStart">
-            <CardPane v-for="(item, index) in tabNum" :key="index">
+            <CardPane v-for="(item, index) in tabNum" :key="index" @scroll.native="scrollHandle" ref="CardPane">
                 <slot name="static-top" :value="value"></slot>
                 <slot :name="`card-pane-${index}`"></slot>
             </CardPane>
@@ -34,6 +34,7 @@ export default {
                 top: 0,
             },
             innerStaticTopHeight: 0,
+            scrollHeight: 0,
         };
     },
     computed: {
@@ -45,42 +46,47 @@ export default {
     methods: {
         swipeChangeStart() {
             this.$emit('on-drag-start');
-            this.staticTopStyle.zIndex = 1;
+            this.setStaticTopPos();
+            this.syncScrollHeight(this.value);
         },
         swipeChangeEnd(value) {
             this.$emit('input', value);
             this.$emit('on-change-end');
             this.staticTopStyle.zIndex = -1;
         },
-        setStaticTopPos(top) {
+        scrollHandle(e) {
+            this.getStaticTopPos(e.target.scrollTop);
+            this.$emit('on-scroll', {
+                scrollTop: e.target.scrollTop,
+                staticTopHeight: this.innerStaticTopHeight,
+            });
+        },
+        getStaticTopPos(top) {
             if (top <= this.innerStaticTopHeight) {
-                this.staticTopStyle.top = `-${top}px`;
+                this.scrollHeight = top;
             } else {
-                this.staticTopStyle.top = `-${this.innerStaticTopHeight}px`;
+                this.scrollHeight = this.innerStaticTopHeight;
             }
         },
-        syncScrollHeight(context, scrollHeight) {
-            const cardPanes = this.findBrothersComponents(context, 'card-pane');
-            cardPanes.forEach(item => {
-                if (scrollHeight <= this.innerStaticTopHeight) {
-                    item.$el.scrollTop = scrollHeight;
-                } else {
-                    item.$el.scrollTop = this.innerStaticTopHeight;
+        setStaticTopPos() {
+            this.staticTopStyle.zIndex = 1;
+            this.staticTopStyle.top = `-${this.scrollHeight}px`;
+        },
+        syncScrollHeight(current) { // 同步滚动高度
+            const cardPanes = this.$refs.CardPane;
+            cardPanes.forEach((item, index) => {
+                if (index !== current) {
+                    if (item.$el.scrollTop <= this.innerStaticTopHeight) {
+                        item.$el.scrollTop = this.scrollHeight;
+                    }
                 }
             });
         },
-        findBrothersComponents(context, componentName, exceptMe = true) {
-            let res = context.$parent.$children.filter(item => {
-                return item.$options.name === componentName;
-            });
-            let index = res.findIndex(item => item._uid === context._uid);
-            if (exceptMe) res.splice(index, 1);
-            return res;
-        },
     },
     watch: {
-        value() {
-            this.staticTopStyle.zIndex = 1;
+        value(newVal, oldVal) {
+            this.setStaticTopPos();
+            this.syncScrollHeight(oldVal);
         },
         staticTopHeight() {
             this.innerStaticTopHeight = this.staticTopHeight;

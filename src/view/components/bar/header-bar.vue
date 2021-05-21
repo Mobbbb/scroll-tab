@@ -1,7 +1,7 @@
 <template>
     <div class="header-bar">
         <div class="back-icon" @click="goBack"></div>
-        <div class="header-title">{{$route.meta.title}}</div>
+        <div class="header-title">title</div>
     </div>
 </template>
 

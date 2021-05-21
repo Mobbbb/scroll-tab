@@ -6,7 +6,6 @@ import '_a/styles/reset.css';
 import '_a/styles/common.css';
 
 import App from './App.vue';
-import router from './router';
 import store from './store/store';
 import { setRem, getRem } from './libs/util';
 
@@ -21,7 +20,6 @@ setRem();
 window.onresize = () => setRem();
 
 new Vue({
-    router,
     store,
     render: h => h(App),
 }).$mount("#app");

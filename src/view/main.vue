@@ -1,6 +1,8 @@
 <template>
     <div id="main">
-        <scroll-tab :tabNum="tabConfig.length" height="100%" :cardWidth="cardWidth" v-model="current">
+        <tab-title v-model="current" :titleArr="tabConfig" class="fixed-tab-title" :style="showFixedTabTitle"></tab-title>
+
+        <scroll-tab :tabNum="tabConfig.length" height="100%" :cardWidth="cardWidth" v-model="current" @on-scroll="scrollHandle">
             <template v-slot:static-top>
                 <div class="bar-wrap main-bar-wrap shrink">
                     <header-bar></header-bar>
@@ -33,7 +35,7 @@
 import HeaderBar from '../view/components/bar/header-bar.vue';
 import SearchBar from '../view/components/bar/search-bar.vue';
 import HotSearch from '../view/components/bar/hotsearch-bar.vue';
-import TabTitle from '../view/components/content-tab/tab-title.vue';
+import TabTitle from '../view/components/bar/tab-title.vue';
 import ScrollTab from '../components/card-swipe/scroll-tab.vue';
 
 export default {
@@ -54,13 +56,22 @@ export default {
                 { name: 'Tab二', trackPoint: 'b' },
                 { name: 'Tab三', trackPoint: 'c' },
             ],
+            showFixedTabTitle: {
+                zIndex: -1,
+            },
         }
     },
     mounted() {
         this.cardWidth = window.windowWidth;
     },
     methods: {
-
+        scrollHandle({scrollTop, staticTopHeight}) {
+            if (scrollTop > staticTopHeight - 44) {
+                this.showFixedTabTitle.zIndex = 2;
+            } else {
+                this.showFixedTabTitle.zIndex = -1;
+            }
+        },
     }
 };
 </script>
@@ -71,5 +82,11 @@ export default {
     }
     .scroll-tab-ul li{
         padding: 4px 12px;
+    }
+    .fixed-tab-title{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
     }
 </style>
