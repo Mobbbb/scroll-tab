@@ -1,7 +1,7 @@
 <template>
     <div class="header-bar">
         <div class="back-icon" @click="goBack"></div>
-        <div class="header-title">title</div>
+        <div class="header-title">Title</div>
     </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     },
     methods: {
         goBack() {
-            this.$router.go(-1);
+            console.log('go back');
         }
     }
 };

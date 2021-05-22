@@ -22,7 +22,31 @@ import CardPane from './card-pane.vue';
 
 export default {
     name: 'scroll-tab',
-    props: ['tabNum', 'height', 'value', 'cardWidth', 'staticTopHeight'],
+    props: {
+        tabNum: {
+            type: Number,
+        },
+        height: {
+            default: 'auto',
+            type: String,
+        },
+        value: {
+            default: 0,
+            type: Number,
+        },
+        cardWidth: {
+            default: 200,
+            type: Number,
+        },
+        staticTopHeight: {
+            default: 0,
+            type: Number,
+        },
+        staticTopOffset: {
+            default: 0,
+            type: Number,
+        },
+    },
     components: {
         CardSwipe,
         CardPane,
@@ -33,15 +57,16 @@ export default {
                 zIndex: -1,
                 top: 0,
             },
-            innerStaticTopHeight: 0,
-            scrollHeight: 0,
+            innerStaticTopHeight: 0, // 上部偏移量的最大值
+            staticTopDisplacement: 0, // 当前上部位移量
+            currentScrollHeight: 0,
         };
     },
     computed: {
 
     },
     mounted() {
-        this.innerStaticTopHeight = this.$refs.staticTopWrap.clientHeight;
+        this.innerStaticTopHeight = this.$refs.staticTopWrap.clientHeight - this.staticTopOffset;
     },
     methods: {
         swipeChangeStart() {
@@ -55,29 +80,32 @@ export default {
             this.staticTopStyle.zIndex = -1;
         },
         scrollHandle(e) {
-            this.getStaticTopPos(e.target.scrollTop);
+            this.currentScrollHeight = e.target.scrollTop;
+            this.getStaticTopPos();
             this.$emit('on-scroll', {
                 scrollTop: e.target.scrollTop,
                 staticTopHeight: this.innerStaticTopHeight,
             });
         },
-        getStaticTopPos(top) {
-            if (top <= this.innerStaticTopHeight) {
-                this.scrollHeight = top;
+        getStaticTopPos() {
+            if (this.currentScrollHeight <= this.innerStaticTopHeight) {
+                this.staticTopDisplacement = this.currentScrollHeight;
             } else {
-                this.scrollHeight = this.innerStaticTopHeight;
+                this.staticTopDisplacement = this.innerStaticTopHeight;
             }
         },
         setStaticTopPos() {
             this.staticTopStyle.zIndex = 1;
-            this.staticTopStyle.top = `-${this.scrollHeight}px`;
+            this.staticTopStyle.top = `-${this.staticTopDisplacement}px`;
         },
         syncScrollHeight(current) { // 同步滚动高度
             const cardPanes = this.$refs.CardPane;
             cardPanes.forEach((item, index) => {
                 if (index !== current) {
-                    if (item.$el.scrollTop <= this.innerStaticTopHeight) {
-                        item.$el.scrollTop = this.scrollHeight;
+                    if (this.currentScrollHeight < this.innerStaticTopHeight) {
+                        item.$el.scrollTop = this.currentScrollHeight;
+                    } else if (item.$el.scrollTop <= this.innerStaticTopHeight) {
+                        item.$el.scrollTop = this.staticTopDisplacement;
                     }
                 }
             });

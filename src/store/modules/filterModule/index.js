@@ -1,11 +1,9 @@
 import { includesOfObj } from '_a/libs/util';
-import {
-    filterList,
-    otherList,
-    intellectList,
-    chartReportsFilterList,
-    opinionReportsFilterList,
-} from '_a/view/components/filter-component/config';
+var filterList = [],
+    otherList = [],
+    intellectList = [],
+    chartReportsFilterList = [],
+    opinionReportsFilterList = [];
 import { getReportFilter, getIndustryFilter, getRecommendData, getResearcherLenovo } from '_a/api/api';
 
 const filterModule = {

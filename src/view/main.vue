@@ -2,7 +2,12 @@
     <div id="main">
         <tab-title v-model="current" :titleArr="tabConfig" class="fixed-tab-title" :style="showFixedTabTitle"></tab-title>
 
-        <scroll-tab :tabNum="tabConfig.length" height="100%" :cardWidth="cardWidth" v-model="current" @on-scroll="scrollHandle">
+        <scroll-tab v-model="current" 
+                    height="100%" 
+                    :tabNum="tabConfig.length" 
+                    :cardWidth="cardWidth" 
+                    :staticTopOffset="staticTopOffset" 
+                    @on-scroll="scrollHandle">
             <template v-slot:static-top>
                 <div class="bar-wrap main-bar-wrap shrink">
                     <header-bar></header-bar>
@@ -59,6 +64,7 @@ export default {
             showFixedTabTitle: {
                 zIndex: -1,
             },
+            staticTopOffset: 44,
         }
     },
     mounted() {
@@ -66,7 +72,7 @@ export default {
     },
     methods: {
         scrollHandle({scrollTop, staticTopHeight}) {
-            if (scrollTop > staticTopHeight - 44) {
+            if (scrollTop >= staticTopHeight) {
                 this.showFixedTabTitle.zIndex = 2;
             } else {
                 this.showFixedTabTitle.zIndex = -1;
